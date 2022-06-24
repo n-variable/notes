@@ -2,6 +2,9 @@
 First Definition - Arthur Samuel (1959): Field of study that gives computers the ability to learn without being programmed
 Second Definition - Tom Mithell (1998): A computer program is said to learn from experience if some experience E in relation to a task T which is measured by performance P, improves in performance P over experience E.
 
+# Brief History
+- Arthur Samuels invented a checkers playing machine that learned by playing against itself.
+
 # Supervised Learning
 Example
     - Ultimately all supervised learning is based on prediction based on some x -> y mapping
