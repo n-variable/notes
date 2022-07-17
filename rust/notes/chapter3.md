@@ -63,5 +63,14 @@
   - Syntax: <code>loop { ... }</code>
   - <code>loop</code> can be used when a specific block of code must be tried until it executes
   - Returning values: <code>let x = loop { ... }</code>
-
-- 
+    - Loops return the <code>break</code> value
+  - Loops can be labeled
+    - Syntax: <code>'loop_name': loop { ... }</code>
+- While
+  - Standard while loop stuff
+    - Syntax: <code>while condition { ... }</code>
+- For
+  - For-Each Loops
+    - Syntax: <code>for x in a { ... }</code>
+  - Ranged For Loops
+    - Syntax: <code>for x in (0..n).rev() { ... }</code>

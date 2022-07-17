@@ -1,0 +1,50 @@
+# Chapter 4: Understanding Ownership
+
+## 4.1: What is ownership
+- Definition: set of rules that governs how a program handles memory
+- Review
+  - Heap
+    - Basics: In order to store data on the heap you have to specify the amount of data needing to be stored and then 
+    - Terminology
+      - Allocating: Setting aside space on the heap for data and retrieving a memory address
+      - Pointer: A variable that stores the address to a location on the heap
+    - Performance
+      - Operations are more expensive than stack because of complexity of the allocation process 
+  - Stack
+    - Basics: Elements are stored in insertion order and elements are removed in the opposite order
+    - Terminology:
+      - Pop: Removing from stack
+      - Push: Adding to stack
+    - Performance
+      - Operations are cheaper than heap because there is no allocation process (locations for pop and push operations are known before operations)
+- **How Items Are Stored**
+  - Immutable items are stored on the stack as they have known sizes at compile-time
+  - Mutable items are stored on the heap as their sizes are unknown at prior to run-time
+- **Ownership Rules**
+  - **Rules**
+    - Every value has an owner
+    - Every value can only have a single owner
+    - When an owner leaves the values scope, the value will be removed
+  - **Scope**
+    - Definition: Range within a program that a specific item can be accessed
+    - Brackets denote the scope for items
+- **Memory Management**
+  - Rust does not use Garbage Collection (languages like Java have a janitor process that frees memory space without references)
+  - Instead Rust automatically returns memory to the allocation pool once an items goes out of scope
+  - When an item leaves scope, the memory is automatically returned to the free mem pool using the <code>drop</code> command which is called automatically at the end of scope (ending bracket)
+- **Multiple Variable Interactions**
+  - **Stack Interactions**
+    - Example: <code>let x = 1; let y = x;</code>
+  - **Heap Interactions**
+    - Example: <code>let s1 = String::from("hello"); let s2 = s1;</code>
+    - Explanation: Since strings are mutable, they must be stored on the heap. When items are stored on the heap what is actually happening is a memory address of the specific amount of memory on the heap required to store a piece of information is being stored on the stack. When copying this data to another variable what is happening is we are creating a new entry on the stack that points to the same memory location on the heap. The original data itself is not being copied, instead we are just creating another access point to the memory location.
+    - Primitive data types (integers, booleans, chars, floats, and primitive tuples and arrays) are stored entirely on the stack, and are automatically deep copied as it is relatively inexpensive to do so. Primitive data types are denoted by their posession of a <code>Copy</code> trait
+  - **Memory Safety Errors**
+    - Double Free Error: When two entries on the stack point to the same location on the heap and the entries are swept after they leave the scope, the <code>drop</code> function will be called twice on the same memory location.
+      - Rust Solution
+        - As soon as another pointer is declared for a heap location that is already accounted for, the original pointer to that location is deleted.
+  - **Deep Copy**
+    - Use the common <code>clone()</code> method
+  - **Shallow Copy**
+    - Assign a new pointer to an existing memory location
+  - **Ownership and Functions**
